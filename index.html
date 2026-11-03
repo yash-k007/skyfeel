@@ -1,0 +1,60 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <!--
+    Security: strict Content Security Policy.
+    - Only files shipped with the app may run (no inline or third-party scripts).
+    - The only network destinations allowed are the two Open-Meteo weather endpoints.
+    - No plugins, no frames, no form posting anywhere.
+  -->
+  <meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self'; style-src 'self'; img-src 'self' data: blob:; font-src 'self'; connect-src https://api.open-meteo.com https://geocoding-api.open-meteo.com; manifest-src 'self'; worker-src 'self'; base-uri 'none'; form-action 'none'; object-src 'none'">
+  <meta name="referrer" content="no-referrer">
+  <meta name="theme-color" content="#4f6df5">
+  <meta name="description" content="Skyfeel: a private mood and weather journal. Your entries never leave your phone.">
+  <title>Skyfeel</title>
+  <link rel="manifest" href="manifest.webmanifest">
+  <link rel="icon" href="icons/icon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="icons/icon-192.png">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-title" content="Skyfeel">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header class="app">
+    <div class="brand">Skyfeel</div>
+    <div class="muted" id="today-label"></div>
+  </header>
+
+  <main>
+    <section id="view-today" class="view" aria-label="Log your mood"></section>
+    <section id="view-calendar" class="view" aria-label="Mood calendar" hidden></section>
+    <section id="view-insights" class="view" aria-label="Insights" hidden></section>
+    <section id="view-settings" class="view" aria-label="Settings" hidden></section>
+  </main>
+
+  <nav class="tabs" aria-label="Main">
+    <button type="button" data-view="today" aria-current="page"><span class="ic" aria-hidden="true">🌤️</span>Today</button>
+    <button type="button" data-view="calendar"><span class="ic" aria-hidden="true">📅</span>Calendar</button>
+    <button type="button" data-view="insights"><span class="ic" aria-hidden="true">📊</span>Insights</button>
+    <button type="button" data-view="settings"><span class="ic" aria-hidden="true">⚙️</span>Settings</button>
+  </nav>
+
+  <div id="toast" class="toast" role="status" aria-live="polite"></div>
+
+  <dialog id="welcome" aria-labelledby="welcome-title">
+    <h2 id="welcome-title">Welcome to Skyfeel ☁️</h2>
+    <p>Log how you feel in a few seconds. Skyfeel attaches the day's weather so you can discover your patterns.</p>
+    <ul class="plain">
+      <li>🔒 <strong>Your entries never leave this phone.</strong> No account, no server, no tracking.</li>
+      <li>🌍 To get the weather, only an approximate location (about 1 km) is sent to Open-Meteo. Never your mood or notes.</li>
+      <li>🗑️ You can export or delete everything at any time in Settings.</li>
+    </ul>
+    <p class="muted">Skyfeel is a personal journal, not a medical tool.</p>
+    <button type="button" class="btn block" id="welcome-ok">Let's go</button>
+  </dialog>
+
+  <script src="app.js"></script>
+</body>
+</html>
